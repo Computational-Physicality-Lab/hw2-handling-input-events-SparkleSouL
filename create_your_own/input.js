@@ -233,7 +233,7 @@ document.addEventListener('touchstart', function (event) {
         var touch2 = event.touches[1];
         // 計算兩根手指之間的距離
         initialDistance = getDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
-        direction = XorY(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY)
+        direction = XorY(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
         // 計算 div 目前的寬度、高度
         initialWidth = parseInt(getComputedStyle(selectedDiv).getPropertyValue('width'), 10);
         initialHeight = parseInt(getComputedStyle(selectedDiv).getPropertyValue('height'), 10);
