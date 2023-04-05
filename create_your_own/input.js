@@ -149,6 +149,7 @@ document.addEventListener('dblclick', function (event) {
 });
 
 // 監聽單指觸控 div 事件
+/*
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 1) {
         if(!isDragging && !isDoubleClicking){
@@ -182,7 +183,7 @@ document.addEventListener('touchstart', function (event) {
         }
     }
 });
-
+*/
 // 監聽單指移動事件
 document.addEventListener('touchmove', function (event) {
     if (isFollowingFinger && movetarget && event.touches.length === 1) {
@@ -208,7 +209,7 @@ document.addEventListener('touchstart', function (event) {
         if(isDoubleClicking){
             return;
         }
-        
+
         // 中止「跟隨手指模式」
         if(isFollowingFinger && movetarget){
             movetarget.style.left = startX + 'px';
