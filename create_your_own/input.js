@@ -154,8 +154,11 @@ document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 1) {
         if(!isDragging && !isDoubleClicking){
             if (event.target.classList.contains('target')) {
-                // 將觸碰的 div 顏色改為藍色
-                event.target.style.backgroundColor = '#00f';
+                // 取消選取其他已被選取的 div
+                if(selectedDiv !== null && selectedDiv !== event.target){
+                    selectedDiv.style.backgroundColor = 'red';
+                    selectedDiv = null;
+                }
 
                 // 將觸碰的 div 標記為已選取
                 selectedDiv = event.target;
