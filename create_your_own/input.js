@@ -165,12 +165,6 @@ document.addEventListener('touchstart', function (event) {
                 startY = parseInt(movetarget.style.top) || 0;
                 offsetX = event.touches[0].clientX - startX;
                 offsetY = event.touches[0].clientY - startY;
-            } else {
-                // 取消選取任何 div
-                if(selectedDiv !== null){
-                    selectedDiv.style.backgroundColor = 'red';
-                    selectedDiv = null;
-                }
             }
         }
     }
@@ -248,11 +242,11 @@ document.addEventListener('touchmove', function (event) {
         var scale = currentDistance / initialDistance;
         // 計算新的寬度、高度
         var newWidth = initialWidth * scale;
-        var newHeight = initialHeight * scale;
+        //var newHeight = initialHeight * scale;
         // 檢查是否超出最小長寬限制
-        if (newWidth >= MIN_WIDTH && newHeight >= MIN_HEIGHT) {
+        if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
             selectedDiv.style.width = newWidth + 'px';
-            selectedDiv.style.height = newHeight + 'px';
+            //selectedDiv.style.height = newHeight + 'px';
         }
     }
 });
