@@ -251,12 +251,10 @@ document.addEventListener('touchmove', function (event) {
         console.log(direction);
         if(direction === 'x'){
             var newWidth = initialWidth + scale;
-            //var newHeight = initialHeight * scale;
             // 檢查是否超出最小長寬限制
-            if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
+            if (newWidth >= MIN_WIDTH) {
                 selectedDiv.style.left = originalX - ( scale / 2 ) + 'px';
                 selectedDiv.style.width = newWidth + 'px';
-                //selectedDiv.style.height = newHeight + 'px';
             }
         }else if(direction === 'y'){
             var newHeight = initialHeight + scale;
@@ -264,7 +262,6 @@ document.addEventListener('touchmove', function (event) {
             if (newHeight >= MIN_HEIGHT) {
                 selectedDiv.style.top = originalY - ( scale / 2 ) + 'px';
                 selectedDiv.style.height = newHeight + 'px';
-                //selectedDiv.style.height = newHeight + 'px';
             }
         }
     }
