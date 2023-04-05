@@ -195,7 +195,7 @@ document.addEventListener('touchmove', function (event) {
 // 監聽單指放開事件
 document.addEventListener('touchend', function (event) {
     if (isFollowingFinger && movetarget) {
-        isDragging = flase;
+        isDragging = false;
         isFollowingFinger = false;
         movetarget = null;
     }
@@ -208,13 +208,13 @@ document.addEventListener('touchstart', function (event) {
         if(isDoubleClicking){
             return;
         }
-
+        
         // 中止「跟隨手指模式」
         if(isFollowingFinger && movetarget){
-        movetarget.style.left = startX + 'px';
-        movetarget.style.top = startY + 'px';
-        isFollowingFinger = false;
-        movetarget = null;
+            movetarget.style.left = startX + 'px';
+            movetarget.style.top = startY + 'px';
+            isFollowingFinger = false;
+            movetarget = null;
         }
     }
 });
@@ -224,10 +224,10 @@ document.addEventListener('touchmove', function (event) {
     if(event.touches.length === 2){
         // 中止「跟隨手指模式」
         if(isFollowingFinger && movetarget){
-        movetarget.style.left = startX + 'px';
-        movetarget.style.top = startY + 'px';
-        isFollowingFinger = false;
-        movetarget = null;
+            movetarget.style.left = startX + 'px';
+            movetarget.style.top = startY + 'px';
+            isFollowingFinger = false;
+            movetarget = null;
         }
     }
 });
