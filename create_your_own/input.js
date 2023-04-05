@@ -220,12 +220,16 @@ document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 2) {
         event.preventDefault();
         isResizing = true;
+        
+        originalX = selectedDiv.offsetLeft;
+        originalY = selectedDiv.offsetTop;
+        
         // 取得兩根手指座標位置
         var touch1 = event.touches[0];
         var touch2 = event.touches[1];
         // 計算兩根手指之間的距離
-        originalX = selectedDiv.offsetLeft;
         initialDistance = getDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
+        direction = XorY(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY)
         // 計算 div 目前的寬度、高度
         initialWidth = parseInt(getComputedStyle(selectedDiv).getPropertyValue('width'), 10);
         initialHeight = parseInt(getComputedStyle(selectedDiv).getPropertyValue('height'), 10);
@@ -242,16 +246,31 @@ document.addEventListener('touchmove', function (event) {
         // 計算寬度、高度的比例
         var scale = currentDistance - initialDistance;
         // 計算新的寬度、高度
-        var newWidth = initialWidth + scale;
-        //var newHeight = initialHeight * scale;
-        // 檢查是否超出最小長寬限制
-        if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
-            selectedDiv.style.left = originalX - ( scale / 2 ) + 'px';
-            selectedDiv.style.width = newWidth + 'px';
-            //selectedDiv.style.height = newHeight + 'px';
+        if(direction){
+            var newWidth = initialWidth + scale;
+            //var newHeight = initialHeight * scale;
+            // 檢查是否超出最小長寬限制
+            if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
+                selectedDiv.style.left = originalX - ( scale / 2 ) + 'px';
+                selectedDiv.style.width = newWidth + 'px';
+                //selectedDiv.style.height = newHeight + 'px';
+            }
+        }
+        else{
+            var newHeight = initialHeight * scale;
+            // 檢查是否超出最小長寬限制
+            if (newHeight >= MIN_HEIGHT) {
+                selectedDiv.style.top = originalY - ( scale / 2 ) + 'px';
+                selectedDiv.style.height = newHeight + 'px';
+                //selectedDiv.style.height = newHeight + 'px';
+            }
         }
     }
 });
+
+function XorY(x1, y1, x2, y2) {
+    Math.abs(x1 - x2) > Math.abs(y1 - y2) ? true : false; 
+}
 
 function getDistance(x1, y1, x2, y2) {
     var deltaX = x1 - x2;
