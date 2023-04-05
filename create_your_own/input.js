@@ -190,6 +190,10 @@ document.addEventListener('touchend', function (event) {
         isDragging = false;
         movetarget = null;
     }
+
+    if (isResizing) {
+        isResizing = false;
+    }
 });
   
 // 監聽雙指觸控 div 事件
@@ -217,6 +221,47 @@ document.addEventListener('touchmove', function (event) {
         }
     }
 });*/
+
+document.addEventListener('touchstart', function (event) {
+    if (event.touches.length === 2) {
+        event.preventDefault();
+        isResizing = true;
+        // 取得兩根手指座標位置
+        var touch1 = event.touches[0];
+        var touch2 = event.touches[1];
+        // 計算兩根手指之間的距離
+        initialDistance = getDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
+        // 計算 div 目前的寬度、高度
+        initialWidth = parseInt(getComputedStyle(selectedDiv).getPropertyValue('width'), 10);
+        initialHeight = parseInt(getComputedStyle(selectedDiv).getPropertyValue('height'), 10);
+    }
+});
+
+document.addEventListener('touchmove', function (event) {
+    if (isResizing) {
+        // 取得兩根手指座標位置
+        var touch1 = event.touches[0];
+        var touch2 = event.touches[1];
+        // 計算兩根手指之間的距離
+        var currentDistance = getDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
+        // 計算寬度、高度的比例
+        var scale = currentDistance / initialDistance;
+        // 計算新的寬度、高度
+        var newWidth = initialWidth * scale;
+        var newHeight = initialHeight * scale;
+        // 檢查是否超出最小長寬限制
+        if (newWidth >= MIN_WIDTH && newHeight >= MIN_HEIGHT) {
+            selectedDiv.style.width = newWidth + 'px';
+            selectedDiv.style.height = newHeight + 'px';
+        }
+    }
+});
+
+function getDistance(x1, y1, x2, y2) {
+    var deltaX = x1 - x2;
+    var deltaY = y1 - y2;
+    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+}
 
 function preventDefault(event) {
     event.preventDefault();
