@@ -232,7 +232,7 @@ document.addEventListener('touchstart', function (event) {
 });
 
 document.addEventListener('touchmove', function (event) {
-    if (isResizing) {
+    if (isResizing && event.touches.length === 2) {
         // 取得兩根手指座標位置
         var touch1 = event.touches[0];
         var touch2 = event.touches[1];
@@ -245,6 +245,7 @@ document.addEventListener('touchmove', function (event) {
         //var newHeight = initialHeight * scale;
         // 檢查是否超出最小長寬限制
         if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
+            selectedDiv.style.left = selectedDiv.style.left - newWidth / 2 ;
             selectedDiv.style.width = newWidth + 'px';
             //selectedDiv.style.height = newHeight + 'px';
         }
