@@ -243,9 +243,10 @@ document.addEventListener('touchmove', function (event) {
         // 計算新的寬度、高度
         var newWidth = initialWidth + scale;
         //var newHeight = initialHeight * scale;
+        originalX = selectedDiv.offsetLeft;
         // 檢查是否超出最小長寬限制
         if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
-            selectedDiv.style.left = selectedDiv.style.left + ( newWidth / 2 ) + 'px';
+            selectedDiv.style.left = originalX + ( newWidth / 2 ) + 'px';
             selectedDiv.style.width = newWidth + 'px';
             //selectedDiv.style.height = newHeight + 'px';
         }
