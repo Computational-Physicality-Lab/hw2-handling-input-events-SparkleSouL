@@ -248,6 +248,7 @@ document.addEventListener('touchmove', function (event) {
         // 計算寬度、高度的比例
         var scale = currentDistance - initialDistance;
         // 計算新的寬度、高度
+        console.log(direction);
         if(direction === 'x'){
             var newWidth = initialWidth + scale;
             //var newHeight = initialHeight * scale;
