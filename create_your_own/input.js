@@ -159,7 +159,7 @@ document.addEventListener('touchstart', function (event) {
         if(!isDragging && !isDoubleClicking){
             if (event.target.classList.contains('target')) {
                 // 進入「跟隨手指模式」
-                isFollowingFinger = true;
+                isDragging = true;
                 movetarget = event.target;
                 startX = parseInt(movetarget.style.left) || 0;
                 startY = parseInt(movetarget.style.top) || 0;
@@ -178,8 +178,7 @@ document.addEventListener('touchstart', function (event) {
 
 // 監聽單指移動事件
 document.addEventListener('touchmove', function (event) {
-    if (isFollowingFinger && movetarget && event.touches.length === 1) {
-        isDragging = true;
+    if (isDragging && movetarget && event.touches.length === 1) {
         movetarget.style.left = event.touches[0].clientX - offsetX + "px";
         movetarget.style.top = event.touches[0].clientY - offsetY + "px";
     }
@@ -187,9 +186,8 @@ document.addEventListener('touchmove', function (event) {
 
 // 監聽單指放開事件
 document.addEventListener('touchend', function (event) {
-    if (isFollowingFinger && movetarget) {
+    if (isDragging && movetarget) {
         isDragging = false;
-        isFollowingFinger = false;
         movetarget = null;
     }
 });
@@ -198,11 +196,11 @@ document.addEventListener('touchend', function (event) {
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 2) {
         // 中止「跟隨手指模式」
-        if(isFollowingFinger && movetarget){
+        if(isDragging && movetarget){
             movetarget.style.left = startX + 'px';
             movetarget.style.top = startY + 'px';
-            isFollowingFinger = false;
-            //movetarget = null;
+            isDragging = false;
+            movetarget = null;
         }
     }
 });
