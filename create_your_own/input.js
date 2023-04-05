@@ -148,6 +148,89 @@ document.addEventListener('dblclick', function (event) {
     }
 });
 
+// 監聽單指觸控 div 事件
+document.addEventListener('touchstart', function (event) {
+    if (event.touches.length === 1) {
+        if(!isDragging && !isDoubleClicking){
+        if (event.target.classList.contains('target')) {
+            // 取消選取其他已被選取的 div
+            if(selectedDiv !== null && selectedDiv !== event.target){
+            selectedDiv.style.backgroundColor = 'red';
+            selectedDiv = null;
+            }
+
+            // 將觸碰的 div 顏色改為藍色
+            event.target.style.backgroundColor = '#00f';
+
+            // 將觸碰的 div 標記為已選取
+            selectedDiv = event.target;
+
+            // 進入「跟隨手指模式」
+            isFollowingFinger = true;
+            movetarget = event.target;
+            startX = parseInt(movetarget.style.left) || 0;
+            startY = parseInt(movetarget.style.top) || 0;
+            offsetX = event.touches[0].clientX - startX;
+            offsetY = event.touches[0].clientY - startY;
+        } else {
+            // 取消選取任何 div
+            if(selectedDiv !== null){
+            selectedDiv.style.backgroundColor = 'red';
+            selectedDiv = null;
+            }
+        }
+        }
+    }
+});
+
+// 監聽單指移動事件
+document.addEventListener('touchmove', function (event) {
+    if (isFollowingFinger && movetarget && event.touches.length === 1) {
+        isDragging = true;
+        movetarget.style.left = event.touches[0].clientX - offsetX + "px";
+        movetarget.style.top = event.touches[0].clientY - offsetY + "px";
+    }
+});
+
+// 監聽單指放開事件
+document.addEventListener('touchend', function (event) {
+    if (isFollowingFinger && movetarget) {
+        isFollowingFinger = false;
+        movetarget = null;
+    }
+});
+  
+// 監聽雙指觸控 div 事件
+document.addEventListener('touchstart', function (event) {
+    if (event.touches.length === 2) {
+        // 雙擊與滑鼠點擊相同
+        if(isDoubleClicking){
+        return;
+        }
+
+        // 中止「跟隨手指模式」
+        if(isFollowingFinger && movetarget){
+        movetarget.style.left = startX + 'px';
+        movetarget.style.top = startY + 'px';
+        isFollowingFinger = false;
+        movetarget = null;
+        }
+    }
+});
+  
+// 監聽雙指移動事件
+document.addEventListener('touchmove', function (event) {
+    if(event.touches.length === 2){
+        // 中止「跟隨手指模式」
+        if(isFollowingFinger && movetarget){
+        movetarget.style.left = startX + 'px';
+        movetarget.style.top = startY + 'px';
+        isFollowingFinger = false;
+        movetarget = null;
+        }
+    }
+});
+
 function preventDefault(event) {
     event.preventDefault();
 }
