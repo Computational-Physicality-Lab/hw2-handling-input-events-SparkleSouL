@@ -239,9 +239,9 @@ document.addEventListener('touchmove', function (event) {
         // 計算兩根手指之間的距離
         var currentDistance = getDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
         // 計算寬度、高度的比例
-        var scale = currentDistance / initialDistance;
+        var scale = currentDistance - initialDistance;
         // 計算新的寬度、高度
-        var newWidth = initialWidth * scale;
+        var newWidth = initialWidth + scale;
         //var newHeight = initialHeight * scale;
         // 檢查是否超出最小長寬限制
         if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
