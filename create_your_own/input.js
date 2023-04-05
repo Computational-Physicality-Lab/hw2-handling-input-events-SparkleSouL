@@ -1,10 +1,14 @@
 const targets = document.querySelectorAll(".target");
 const workspace = document.querySelector('#workspace');
 
+const MIN_WIDTH = 50;
+const MIN_HEIGHT = 50;
+
 var selectedDiv = null;
 var isMouseDown = false;
 var isDragging = false;
 var isDoubleClicking = false;
+var isResizing = false;
 
 var movetarget = null;
 
@@ -193,16 +197,12 @@ document.addEventListener('touchend', function (event) {
 // 監聽雙指觸控 div 事件
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 2) {
-        if(isDoubleClicking){
-            return;
-        }
-
         // 中止「跟隨手指模式」
         if(isFollowingFinger && movetarget){
             movetarget.style.left = startX + 'px';
             movetarget.style.top = startY + 'px';
             isFollowingFinger = false;
-            movetarget = null;
+            //movetarget = null;
         }
     }
 });
