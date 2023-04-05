@@ -246,7 +246,7 @@ document.addEventListener('touchmove', function (event) {
         originalX = selectedDiv.offsetLeft;
         // 檢查是否超出最小長寬限制
         if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
-            selectedDiv.style.left = originalX + ( newWidth / 2 ) + 'px';
+            selectedDiv.style.left = originalX - ( newWidth / 2 ) + 'px';
             selectedDiv.style.width = newWidth + 'px';
             //selectedDiv.style.height = newHeight + 'px';
         }
