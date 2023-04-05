@@ -193,7 +193,6 @@ document.addEventListener('touchend', function (event) {
 // 監聽雙指觸控 div 事件
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 2) {
-        // 雙擊與滑鼠點擊相同
         if(isDoubleClicking){
             return;
         }
@@ -207,7 +206,7 @@ document.addEventListener('touchstart', function (event) {
         }
     }
 });
-  
+/*
 // 監聽雙指移動事件
 document.addEventListener('touchmove', function (event) {
     if(event.touches.length === 2){
@@ -219,7 +218,7 @@ document.addEventListener('touchmove', function (event) {
             movetarget = null;
         }
     }
-});
+});*/
 
 function preventDefault(event) {
     event.preventDefault();
