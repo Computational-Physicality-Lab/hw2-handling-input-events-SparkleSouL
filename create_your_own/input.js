@@ -245,7 +245,7 @@ document.addEventListener('touchmove', function (event) {
         //var newHeight = initialHeight * scale;
         // 檢查是否超出最小長寬限制
         if (newWidth >= MIN_WIDTH /*&& newHeight >= MIN_HEIGHT*/) {
-            selectedDiv.style.left = selectedDiv.style.left - newWidth / 2 ;
+            selectedDiv.style.left = selectedDiv.style.left + ( newWidth / 2 ) + 'px';
             selectedDiv.style.width = newWidth + 'px';
             //selectedDiv.style.height = newHeight + 'px';
         }
