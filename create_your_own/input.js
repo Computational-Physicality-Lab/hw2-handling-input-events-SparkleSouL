@@ -249,6 +249,12 @@ document.addEventListener('touchmove', function (event) {
         var scale = currentDistance - initialDistance;
         // 計算新的寬度、高度
         console.log(direction);
+        var newWidth = initialWidth + scale;
+            // 檢查是否超出最小長寬限制
+            if (newWidth >= MIN_WIDTH) {
+                selectedDiv.style.left = originalX - ( scale / 2 ) + 'px';
+                selectedDiv.style.width = newWidth + 'px';
+            }
         if(direction === 'x'){
             var newWidth = initialWidth + scale;
             // 檢查是否超出最小長寬限制
