@@ -10,6 +10,8 @@ var isDragging = false;
 var isDoubleClicking = false;
 var isResizing = false;
 
+var direction
+
 var movetarget = null;
 
 var startX;
@@ -223,7 +225,7 @@ document.addEventListener('touchstart', function (event) {
         
         originalX = selectedDiv.offsetLeft;
         originalY = selectedDiv.offsetTop;
-        
+
         // 取得兩根手指座標位置
         var touch1 = event.touches[0];
         var touch2 = event.touches[1];
@@ -246,7 +248,7 @@ document.addEventListener('touchmove', function (event) {
         // 計算寬度、高度的比例
         var scale = currentDistance - initialDistance;
         // 計算新的寬度、高度
-        if(direction){
+        if(direction === 'x'){
             var newWidth = initialWidth + scale;
             //var newHeight = initialHeight * scale;
             // 檢查是否超出最小長寬限制
@@ -255,9 +257,8 @@ document.addEventListener('touchmove', function (event) {
                 selectedDiv.style.width = newWidth + 'px';
                 //selectedDiv.style.height = newHeight + 'px';
             }
-        }
-        else{
-            var newHeight = initialHeight * scale;
+        }else if(direction === 'y'){
+            var newHeight = initialHeight + scale;
             // 檢查是否超出最小長寬限制
             if (newHeight >= MIN_HEIGHT) {
                 selectedDiv.style.top = originalY - ( scale / 2 ) + 'px';
@@ -269,7 +270,7 @@ document.addEventListener('touchmove', function (event) {
 });
 
 function XorY(x1, y1, x2, y2) {
-    Math.abs(x1 - x2) > Math.abs(y1 - y2) ? true : false; 
+    Math.abs(x1 - x2) > Math.abs(y1 - y2) ? 'x' : 'y'; 
 }
 
 function getDistance(x1, y1, x2, y2) {
