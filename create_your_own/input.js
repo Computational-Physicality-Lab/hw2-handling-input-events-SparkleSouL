@@ -9,8 +9,9 @@ var isMouseDown = false;
 var isDragging = false;
 var isDoubleClicking = false;
 var isResizing = false;
+let isDoubleTapping = false;
 
-var direction
+var direction;
 
 var movetarget = null;
 
@@ -20,6 +21,7 @@ var offsetX;
 var offsetY;
 var originalX;
 var originalY;
+var lastTapTime = 0;
 
 // 監聽滑鼠點擊 div 事件
 document.addEventListener('click', function (event) {
@@ -250,11 +252,6 @@ document.addEventListener('touchmove', function (event) {
         // 計算新的寬度、高度
         console.log(direction);
         var newWidth = initialWidth + scale;
-            // 檢查是否超出最小長寬限制
-            if (newWidth >= MIN_WIDTH) {
-                selectedDiv.style.left = originalX - ( scale / 2 ) + 'px';
-                selectedDiv.style.width = newWidth + 'px';
-            }
         if(direction === 'x'){
             var newWidth = initialWidth + scale;
             // 檢查是否超出最小長寬限制
@@ -271,6 +268,21 @@ document.addEventListener('touchmove', function (event) {
             }
         }
     }
+});
+
+document.addEventListener('touchstart', function(e) {
+  if (tapped && (Date.now() - lastTapTime) < 300) {
+    // 如果已經點了一次，並且在 300 毫秒內再點了一次，就視為 double tap
+    
+    tapped = false;
+  } else {
+    tapped = true;
+    lastTapTime = Date.now();
+    setTimeout(function() {
+      // 如果 300 毫秒內沒有再點一次，就取消 tapped 的狀態
+      tapped = false;
+    }, 300);
+  }
 });
 
 function XorY(x1, y1, x2, y2) {
