@@ -185,6 +185,10 @@ document.addEventListener('touchmove', function (event) {
         movetarget.style.left = event.touches[0].clientX - offsetX + "px";
         movetarget.style.top = event.touches[0].clientY - offsetY + "px";
     }
+    if(isDoubleClicking && event.touches.length === 1){
+        selectedDiv.style.left = event.touches[0].clientX - offsetX + "px";
+        selectedDiv.style.top = event.touches[0].clientY - offsetY + "px";
+    }
 });
 
 // 監聽單指放開事件
