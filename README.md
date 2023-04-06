@@ -1,5 +1,6 @@
 # hw2-handling-input-events
 
+## Deployment
 [Netlify Website Link](aesthetic-monstera-91978f.netlify.app)
 
 ## Process Control Strategy
