@@ -213,7 +213,8 @@ document.addEventListener('touchstart', function (event) {
 });
 
 document.addEventListener('touchstart', function (event) {
-    if (event.touches.length === 2 && isResizing) {
+    if (event.touches.length === 2) {
+        isResizing = true;
         event.preventDefault();
         
         originalX = selectedDiv.offsetLeft;
@@ -258,7 +259,7 @@ document.addEventListener('touchmove', function (event) {
                 selectedDiv.style.height = newHeight + 'px';
             }
         }
-        if(event.touches.length > 2 || event.touches.length === 0){
+        if(event.touches.length > 2){
             isResizing = false;
         }
     }
