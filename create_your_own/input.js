@@ -236,6 +236,13 @@ document.addEventListener('touchstart', function (event) {
         initialWidth = parseInt(getComputedStyle(selectedDiv).getPropertyValue('width'), 10);
         initialHeight = parseInt(getComputedStyle(selectedDiv).getPropertyValue('height'), 10);
     }
+    if(isResizing && event.touches.length > 2){
+        selectedDiv.style.left = originalX + 'px';
+        selectedDiv.style.width = initialWidth + 'px';
+        selectedDiv.style.top = originalY + 'px';
+        selectedDiv.style.height = initialHeight + 'px';
+        isResizing = false;
+    }
 });
 
 document.addEventListener('touchmove', function (event) {
@@ -263,13 +270,6 @@ document.addEventListener('touchmove', function (event) {
                 selectedDiv.style.top = originalY - ( scaleY / 2 ) + 'px';
                 selectedDiv.style.height = newHeight + 'px';
             }
-        }
-        if(event.touches.length > 2){
-            selectedDiv.style.left = originalX + 'px';
-            selectedDiv.style.width = initialWidth + 'px';
-            selectedDiv.style.top = originalY + 'px';
-            selectedDiv.style.height = initialHeight + 'px';
-            isResizing = false;
         }
     }
 });
