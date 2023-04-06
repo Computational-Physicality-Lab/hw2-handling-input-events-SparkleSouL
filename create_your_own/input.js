@@ -264,23 +264,23 @@ document.addEventListener('touchmove', function (event) {
     }
 });
 
-document.addEventListener('touchstart', function(e) {
-  if (tapped && (Date.now() - lastTapTime) < 300) {
-    if(event.touches.length === 2){
-        isResizing = true;
-        tapped = false;
-    }else{
-        isDoubleTapping = true;
-        tapped = false;
+document.addEventListener('touchstart', function (event) {
+    if (tapped && (Date.now() - lastTapTime) < 300) {
+        if(event.touches.length === 2){
+            isResizing = true;
+            tapped = false;
+        }else{
+            isDoubleTapping = true;
+            tapped = false;
+        }
+    } else {
+        tapped = true;
+        lastTapTime = Date.now();
+        setTimeout(function() {
+            // 如果 300 毫秒內沒有再點一次，就取消 tapped 的狀態
+            tapped = false;
+        }, 300);
     }
-  } else {
-    tapped = true;
-    lastTapTime = Date.now();
-    setTimeout(function() {
-        // 如果 300 毫秒內沒有再點一次，就取消 tapped 的狀態
-        tapped = false;
-    }, 300);
-  }
 });
 
 function XorY(x1, y1, x2, y2) {
