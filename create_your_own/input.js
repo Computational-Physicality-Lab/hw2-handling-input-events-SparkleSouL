@@ -9,6 +9,7 @@ var isMouseDown = false;
 var isDragging = false;
 var isDoubleClicking = false;
 var isResizing = false;
+var isHault = false;
 
 var direction;
 
@@ -164,6 +165,7 @@ document.addEventListener('dblclick', function (event) {
 
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 1) {
+        isHault = false;
         if(!isDragging && !isDoubleClicking){
             if (event.target.classList.contains('target')) {
                 // 進入「跟隨手指模式」
@@ -217,12 +219,20 @@ document.addEventListener('touchstart', function (event) {
             selectedDiv.style.left = originalX + 'px';
             selectedDiv.style.top = originalY + 'px';
             isDoubleClicking = false;
+            isHault = true;
+
+            document.removeEventListener('mousemove', followMouse);
+            document.removeEventListener('mousedown', preventDefault);
+            document.removeEventListener('mouseup', preventDefault);
+            document.removeEventListener('click', preventDefault);
+            document.removeEventListener('contextmenu', preventDefault);
+            document.removeEventListener('keydown', arguments.callee);
         }
     }
 });
 
 document.addEventListener('touchstart', function (event) {
-    if (event.touches.length === 2 && !isDoubleClicking) {
+    if (event.touches.length === 2 && !isHault) {
         isResizing = true;
         event.preventDefault();
         
