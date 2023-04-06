@@ -206,19 +206,6 @@ document.addEventListener('touchstart', function (event) {
         }
     }
 });
-/*
-// 監聽雙指移動事件
-document.addEventListener('touchmove', function (event) {
-    if(event.touches.length === 2){
-        // 中止「跟隨手指模式」
-        if(isFollowingFinger && movetarget){
-            movetarget.style.left = startX + 'px';
-            movetarget.style.top = startY + 'px';
-            isFollowingFinger = false;
-            movetarget = null;
-        }
-    }
-});*/
 
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 2) {
@@ -232,7 +219,8 @@ document.addEventListener('touchstart', function (event) {
         var touch1 = event.touches[0];
         var touch2 = event.touches[1];
         // 計算兩根手指之間的距離
-        initialDistance = getDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
+        initialDistanceX = getDistance(touch1.clientX, touch2.clientX);
+        initialDistanceY = getDistance(touch1.clientY, touch2.clientY);
         direction = XorY(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
         // 計算 div 目前的寬度、高度
         initialWidth = parseInt(getComputedStyle(selectedDiv).getPropertyValue('width'), 10);
@@ -246,24 +234,26 @@ document.addEventListener('touchmove', function (event) {
         var touch1 = event.touches[0];
         var touch2 = event.touches[1];
         // 計算兩根手指之間的距離
-        var currentDistance = getDistance(touch1.clientX, touch1.clientY, touch2.clientX, touch2.clientY);
+        var currentDistanceX = getDistance(touch1.clientX, touch2.clientX);
+        var currentDistanceY = getDistance(touch1.clientY, touch2.clientY);
         // 計算寬度、高度的比例
-        var scale = currentDistance - initialDistance;
+        var scaleX = currentDistanceX - initialDistanceX;
+        var scaleY = currentDistanceY - initialDistanceY;
         // 計算新的寬度、高度
         console.log(direction);
         var newWidth = initialWidth + scale;
         if(direction == 'x'){
-            var newWidth = initialWidth + scale;
+            var newWidth = initialWidth + scaleX;
             // 檢查是否超出最小長寬限制
             if (newWidth >= MIN_WIDTH) {
-                selectedDiv.style.left = originalX - ( scale / 2 ) + 'px';
+                selectedDiv.style.left = originalX - ( scaleX / 2 ) + 'px';
                 selectedDiv.style.width = newWidth + 'px';
             }
         }else if(direction == 'y'){
-            var newHeight = initialHeight + scale;
+            var newHeight = initialHeight + scaleY;
             // 檢查是否超出最小長寬限制
             if (newHeight >= MIN_HEIGHT) {
-                selectedDiv.style.top = originalY - ( scale / 2 ) + 'px';
+                selectedDiv.style.top = originalY - ( scaleY / 2 ) + 'px';
                 selectedDiv.style.height = newHeight + 'px';
             }
         }
@@ -289,10 +279,8 @@ function XorY(x1, y1, x2, y2) {
     return Math.abs(x1 - x2) > Math.abs(y1 - y2) ? 'x' : 'y'; 
 }
 
-function getDistance(x1, y1, x2, y2) {
-    var deltaX = x1 - x2;
-    var deltaY = y1 - y2;
-    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+function getDistance(a, b) {
+    return Math.abs(a - b);
 }
 
 function preventDefault(event) {
