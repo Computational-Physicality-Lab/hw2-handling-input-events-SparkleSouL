@@ -23,6 +23,11 @@ var originalX;
 var originalY;
 var lastTapTime = 0;
 
+var initialDistanceX;
+var initialDistanceY;
+var initialHeight;
+var initialWidth;
+
 // 監聽滑鼠點擊 div 事件
 document.addEventListener('click', function (event) {
     if(!isDragging && !isDoubleClicking){
@@ -239,9 +244,6 @@ document.addEventListener('touchmove', function (event) {
         // 計算寬度、高度的比例
         var scaleX = currentDistanceX - initialDistanceX;
         var scaleY = currentDistanceY - initialDistanceY;
-        // 計算新的寬度、高度
-        console.log(direction);
-        var newWidth = initialWidth + scale;
         if(direction == 'x'){
             var newWidth = initialWidth + scaleX;
             // 檢查是否超出最小長寬限制
