@@ -282,6 +282,7 @@ document.addEventListener('touchstart', function (event) {
             tapped = false;
             alert("untap.");
         }, 500);
+        alert("tap.");
     }
 });
 
