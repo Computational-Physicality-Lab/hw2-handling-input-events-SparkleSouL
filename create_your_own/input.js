@@ -214,6 +214,7 @@ document.addEventListener('touchstart', function (event) {
             isDragging = false;
             isDoubleClicking = false;
             movetarget = null;
+            isHault = true;
         }
         if(isDoubleClicking){
             selectedDiv.style.left = originalX + 'px';
