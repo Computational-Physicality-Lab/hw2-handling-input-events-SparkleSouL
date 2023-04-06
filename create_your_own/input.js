@@ -206,18 +206,23 @@ document.addEventListener('touchend', function (event) {
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 2) {
         // 中止「跟隨手指模式」
-        if( (isDragging && movetarget) || isDoubleClicking){
+        if( (isDragging && movetarget) ){
             movetarget.style.left = startX + 'px';
             movetarget.style.top = startY + 'px';
             isDragging = false;
             isDoubleClicking = false;
             movetarget = null;
         }
+        if(isDoubleClicking){
+            selectedDiv.style.left = originalX + 'px';
+            selectedDiv.style.top = originalY + 'px';
+            isDoubleClicking = false;
+        }
     }
 });
 
 document.addEventListener('touchstart', function (event) {
-    if (event.touches.length === 2) {
+    if (event.touches.length === 2 && !isDoubleClicking) {
         isResizing = true;
         event.preventDefault();
         
