@@ -213,7 +213,7 @@ document.addEventListener('touchstart', function (event) {
 });
 
 document.addEventListener('touchstart', function (event) {
-    if (event.touches.length === 2) {
+    if (event.touches.length === 2 && isDoubleTapping) {
         event.preventDefault();
         isResizing = true;
         
@@ -259,20 +259,21 @@ document.addEventListener('touchmove', function (event) {
                 selectedDiv.style.height = newHeight + 'px';
             }
         }
+        if(event.touches.length > 2 || event.touches.length === 0){
+            isResizing = false;
+        }
     }
 });
 
 document.addEventListener('touchstart', function(e) {
   if (tapped && (Date.now() - lastTapTime) < 300) {
-    // 如果已經點了一次，並且在 300 毫秒內再點了一次，就視為 double tap
-    
     tapped = false;
   } else {
     tapped = true;
     lastTapTime = Date.now();
     setTimeout(function() {
-      // 如果 300 毫秒內沒有再點一次，就取消 tapped 的狀態
-      tapped = false;
+        // 如果 300 毫秒內沒有再點一次，就取消 tapped 的狀態
+        tapped = false;
     }, 300);
   }
 });
