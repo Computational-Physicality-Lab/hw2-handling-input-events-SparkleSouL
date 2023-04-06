@@ -21,7 +21,7 @@ var offsetX;
 var offsetY;
 var originalX;
 var originalY;
-var lastTapTime = 0;
+var lastTapTime;
 
 var initialDistanceX;
 var initialDistanceY;
@@ -265,7 +265,7 @@ document.addEventListener('touchmove', function (event) {
 });
 
 document.addEventListener('touchstart', function (event) {
-    if (tapped && (Date.now() - lastTapTime) < 300) {
+    if (tapped && (Date.now() - lastTapTime) < 500) {
         if(event.touches.length === 2){
             isResizing = true;
             tapped = false;
@@ -273,13 +273,15 @@ document.addEventListener('touchstart', function (event) {
             isDoubleTapping = true;
             tapped = false;
         }
+        alert("doouble tap.");
     } else {
         tapped = true;
         lastTapTime = Date.now();
         setTimeout(function() {
             // 如果 300 毫秒內沒有再點一次，就取消 tapped 的狀態
             tapped = false;
-        }, 300);
+            alert("untap.");
+        }, 500);
     }
 });
 
