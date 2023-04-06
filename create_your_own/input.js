@@ -213,9 +213,8 @@ document.addEventListener('touchstart', function (event) {
 });
 
 document.addEventListener('touchstart', function (event) {
-    if (event.touches.length === 2 && isDoubleTapping) {
+    if (event.touches.length === 2 && isResizing) {
         event.preventDefault();
-        isResizing = true;
         
         originalX = selectedDiv.offsetLeft;
         originalY = selectedDiv.offsetTop;
@@ -230,8 +229,6 @@ document.addEventListener('touchstart', function (event) {
         // 計算 div 目前的寬度、高度
         initialWidth = parseInt(getComputedStyle(selectedDiv).getPropertyValue('width'), 10);
         initialHeight = parseInt(getComputedStyle(selectedDiv).getPropertyValue('height'), 10);
-
-        isDoubleTapping = false;
     }
 });
 
@@ -269,8 +266,13 @@ document.addEventListener('touchmove', function (event) {
 
 document.addEventListener('touchstart', function(e) {
   if (tapped && (Date.now() - lastTapTime) < 300) {
-    isDoubleTapping = true;
-    tapped = false;
+    if(event.touches.length === 2){
+        isResizing = true;
+        tapped = false;
+    }else{
+        isDoubleTapping = true;
+        tapped = false;
+    }
   } else {
     tapped = true;
     lastTapTime = Date.now();
