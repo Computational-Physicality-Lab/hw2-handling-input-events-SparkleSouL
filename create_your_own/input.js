@@ -211,6 +211,7 @@ document.addEventListener('touchstart', function (event) {
             movetarget.style.left = startX + 'px';
             movetarget.style.top = startY + 'px';
             isDragging = false;
+            isDoubleClicking = false;
             movetarget = null;
         }
     }
@@ -264,6 +265,10 @@ document.addEventListener('touchmove', function (event) {
             }
         }
         if(event.touches.length > 2){
+            selectedDiv.style.left = originalX + 'px';
+            selectedDiv.style.width = initialWidth + 'px';
+            selectedDiv.style.top = originalY + 'px';
+            selectedDiv.style.height = initialHeight + 'px';
             isResizing = false;
         }
     }
