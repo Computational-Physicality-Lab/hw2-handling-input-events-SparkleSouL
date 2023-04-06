@@ -9,7 +9,6 @@ var isMouseDown = false;
 var isDragging = false;
 var isDoubleClicking = false;
 var isResizing = false;
-let isDoubleTapping = false;
 
 var direction;
 
@@ -271,28 +270,6 @@ document.addEventListener('touchmove', function (event) {
                 selectedDiv.style.height = newHeight + 'px';
             }
         }
-    }
-});
-
-document.addEventListener('touchstart', function (event) {
-    if (tapped && (Date.now() - lastTapTime) < 500) {
-        if(event.touches.length === 2){
-            isResizing = true;
-            tapped = false;
-        }else{
-            isDoubleTapping = true;
-            tapped = false;
-        }
-        alert("doouble tap.");
-    } else {
-        tapped = true;
-        lastTapTime = Date.now();
-        setTimeout(function() {
-            // 如果 300 毫秒內沒有再點一次，就取消 tapped 的狀態
-            tapped = false;
-            alert("untap.");
-        }, 500);
-        alert("tap.");
     }
 });
 
