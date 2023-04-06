@@ -206,7 +206,7 @@ document.addEventListener('touchend', function (event) {
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length === 2) {
         // 中止「跟隨手指模式」
-        if(isDragging && movetarget){
+        if( (isDragging && movetarget) || isDoubleClicking){
             movetarget.style.left = startX + 'px';
             movetarget.style.top = startY + 'px';
             isDragging = false;
