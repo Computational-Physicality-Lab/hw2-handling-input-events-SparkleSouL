@@ -230,6 +230,8 @@ document.addEventListener('touchstart', function (event) {
         // 計算 div 目前的寬度、高度
         initialWidth = parseInt(getComputedStyle(selectedDiv).getPropertyValue('width'), 10);
         initialHeight = parseInt(getComputedStyle(selectedDiv).getPropertyValue('height'), 10);
+
+        isDoubleTapping = false;
     }
 });
 
@@ -267,6 +269,7 @@ document.addEventListener('touchmove', function (event) {
 
 document.addEventListener('touchstart', function(e) {
   if (tapped && (Date.now() - lastTapTime) < 300) {
+    isDoubleTapping = true;
     tapped = false;
   } else {
     tapped = true;
